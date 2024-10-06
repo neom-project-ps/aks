@@ -1,8 +1,13 @@
 pipeline {
     agent any
+    environment {
+        azuresp = credentials('azuresp')
+    }
     stages {
         stage('Checkout') {
-            checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/neom-project-ps/neom-terraform.git']])
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/neom-project-ps/neom-terraform.git']])
+            }
         }
         stage('Terraform Initialization'){
             steps {
